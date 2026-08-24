@@ -182,22 +182,6 @@
   document.querySelectorAll(".skill-group").forEach(g=>obs.observe(g));
 })();
 
-/* ============================================================
-   PROJECT CAROUSEL IMAGES
-   ------------------------------------------------------------
-   This is the ONLY place you need to edit to add, remove, or
-   reorder images in a project's carousel. Each project has a
-   key (matching data-project="..." on the carousel in the HTML)
-   and a list of images. Each image is one line: { src, caption }.
-
-   - To REMOVE an image: delete its line (or comment it out with // in front).
-   - To ADD an image: copy a line and change the src/caption.
-   - To REORDER: just move the lines around.
-   - Leave a project's array empty ([]) if you have no images yet -
-     it'll show a placeholder telling you what to add.
-   - src is the file path relative to this HTML file. Spaces in
-     filenames are fine as written below.
-   ============================================================ */
 const PROJECT_IMAGES = {
   defense: [
     { src: "images/projects/wazuh dashboard.png", caption: "Wazuh dashboard" },
@@ -230,11 +214,6 @@ const PROJECT_IMAGES = {
   ],
 };
 
-/* CAROUSELS - builds itself from PROJECT_IMAGES above, no other edits needed.
-   Each carousel auto-sizes its own height to match the aspect ratio of
-   whichever image is currently showing (clamped between MIN_H and MAX_H),
-   so a short wide screenshot and a tall narrow one both display at a
-   readable size instead of being squeezed into one fixed box. */
 (function(){
   const MIN_H = 280;
   const MAX_H = 680;
