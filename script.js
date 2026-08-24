@@ -377,3 +377,39 @@ const PROJECT_IMAGES = {
   }
   setTimeout(type, 600);
 })();
+
+const nav = document.querySelector("nav");
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelectorAll(".nav-links a");
+
+if (hamburger && nav) {
+
+    // Open / close hamburger menu
+    hamburger.addEventListener("click", () => {
+        nav.classList.toggle("menu-open");
+
+        const isOpen = nav.classList.contains("menu-open");
+
+        hamburger.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+    });
+
+    // Close menu after clicking a navigation link
+    navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            nav.classList.remove("menu-open");
+            hamburger.setAttribute("aria-expanded", "false");
+        });
+    });
+
+    // Reset menu when returning to desktop
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+            nav.classList.remove("menu-open");
+            hamburger.setAttribute("aria-expanded", "false");
+        }
+    });
+
+}
