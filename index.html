@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rachel - Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0c14;--bg2:#0e111c;--border:rgba(133,150,220,.16);
+  --ink:#f7f8ff;--ink2:#d7d9f0;--ink3:#b7bbe0;--muted:#8488b4;--light:#5c6090;
+  --blue:#5a7fd4;--purple:#8560d4;--pink:#d45fa0;--lilac:#a87ed4;
+  --serif:"Space Grotesk",sans-serif;--sans:"Outfit",sans-serif;--mono:"JetBrains Mono",monospace;
+}
+html{font-size:16px;scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;overflow-x:hidden;cursor:none;}
+
+
+/* PARALLAX ELEMENTS */
+.parallax-slow   { will-change:transform; }
+.parallax-mid    { will-change:transform; }
+.parallax-fast   { will-change:transform; }
+.hero-name-wrap  { will-change:transform; }
+.sec-heading-par { will-change:transform; }
+.stat-card       { transition:box-shadow .3s,transform .3s,translate .1s; }
+
+/* CURSOR */
+#cursor-dot{position:fixed;width:9px;height:9px;border-radius:50%;background:#c9a3ff;box-shadow:0 0 12px rgba(201,163,255,.9),0 0 4px #fff;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .2s;}
+#cursor-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(201,163,255,.65);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;}
+body.cursor-hover #cursor-dot{width:0;height:0;opacity:0;}
+body.cursor-hover #cursor-ring{width:52px;height:52px;border-color:rgba(201,163,255,.9);background:rgba(201,163,255,.1);}
+@media(hover:none){body{cursor:auto;}#cursor-dot,#cursor-ring{display:none;}}
+
+/* PARTICLES */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.particle{position:absolute;border-radius:50%;opacity:0;animation:floatUp linear infinite;}
+@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:0;}10%{opacity:1;}90%{opacity:.4;}100%{transform:translateY(-100vh) translateX(20px) scale(.5);opacity:0;}}
+
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 55% at 10% 12%,rgba(133,96,212,.10) 0%,transparent 65%),
+    radial-gradient(ellipse 55% 50% at 90% 18%,rgba(90,127,212,.09) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 45% at 50% 92%,rgba(212,95,160,.08) 0%,transparent 65%);}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:200;padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:background .5s,border-color .5s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(8,10,18,.85);backdrop-filter:blur(24px);border-color:var(--border);}
+.nav-name{font-family:var(--mono);font-size:15px;letter-spacing:1px;font-weight:500;background:linear-gradient(90deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:2.4rem;list-style:none;}
+.nav-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:#fff;}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:grid;grid-template-rows:1fr auto;overflow:hidden;background:#080a10;}
+#hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:220px;pointer-events:none;z-index:5;
+  background:linear-gradient(to top,var(--bg),transparent);}
+
+.parallax-bg{
+  position:absolute;inset:0;
+  will-change:transform;
+  z-index:0;
+}
+
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(50px);will-change:transform;animation:drift 13s ease-in-out infinite;}
+.orb-1{width:500px;height:420px;top:-60px;left:-80px;background:radial-gradient(circle,rgba(168,140,255,.28) 0%,transparent 70%);animation-duration:15s;}
+.orb-2{width:420px;height:360px;top:-20px;right:-90px;background:radial-gradient(circle,rgba(120,160,255,.24) 0%,transparent 70%);animation-duration:11s;animation-delay:-5s;}
+.orb-3{width:360px;height:360px;bottom:12%;left:18%;background:radial-gradient(circle,rgba(255,150,210,.22) 0%,transparent 70%);animation-duration:14s;animation-delay:-9s;}
+.orb-4{width:280px;height:260px;bottom:22%;right:12%;background:radial-gradient(circle,rgba(150,130,255,.18) 0%,transparent 70%);animation-duration:10s;animation-delay:-3s;}
+@keyframes drift{0%,100%{transform:translate(0,0);}33%{transform:translate(20px,-18px);}66%{transform:translate(-16px,14px);}}
+
+.hero-inner{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 2rem;gap:0;}
+
+.hero-pre{font-size:11px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--ink2);margin-bottom:2.5rem;opacity:0;animation:rise .8s .2s forwards;}
+
+.hero-name-wrap{width:100%;max-width:380px;margin:0 auto 2rem;position:relative;z-index:10;opacity:0;animation:rise .4s .5s forwards;}
+.hero-name-wrap svg{width:100%;height:auto;overflow:visible;display:block;}
+
+.hero-name{font-family:var(--serif);font-size:clamp(28px,6vw,48px);font-weight:400;color:var(--ink);line-height:1.1;margin-bottom:1.6rem;letter-spacing:-.5px;opacity:0;animation:rise .4s .5s forwards;}
+.terminal-name{display:inline-block;text-align:left;}
+.terminal-prompt{font-family:var(--mono);font-size:13px;color:var(--muted);letter-spacing:.5px;margin-bottom:.6rem;}
+.terminal-prompt.about-heading{font-family:var(--serif);font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-.5px;color:var(--ink);margin-bottom:1.6rem;}
+.terminal-output{font-family:var(--mono);font-weight:600;font-size:clamp(30px,6.2vw,46px);letter-spacing:-1px;line-height:1.15;color:#fff;}
+.cursor-blink{display:inline-block;-webkit-text-fill-color:var(--purple);color:var(--purple);animation:blink 1s step-end infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+.hero-rule{width:80px;height:1px;margin:0 auto 2rem;background:linear-gradient(to right,var(--blue),var(--purple),var(--pink));opacity:0;}
+.hero-typewriter{font-size:clamp(13px,1.6vw,17px);font-weight:400;color:var(--ink3);letter-spacing:.3px;line-height:1.9;min-height:2em;opacity:0;}
+
+.scroll-cue{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:10px;padding:2rem 0 3rem;opacity:0;}
+.scroll-cue span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--light);}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--purple),transparent);animation:breathe 1.2s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:.7;}50%{opacity:.15;}}
+@keyframes rise{to{opacity:1;transform:translateY(0);}}
+
+/* STATEMENT */
+#statement{position:relative;z-index:2;padding:8rem 4rem;background:var(--ink);overflow:hidden;text-align:center;}
+#statement::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 55% 60% at 15% 50%,rgba(90,127,212,.18) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 55% at 85% 50%,rgba(212,95,160,.15) 0%,transparent 60%);}
+.statement-inner{position:relative;z-index:2;max-width:820px;margin:0 auto;}
+.statement-label{font-size:10px;font-weight:500;letter-spacing:5px;text-transform:uppercase;color:var(--lilac);margin-bottom:2.5rem;opacity:.8;}
+.statement-text{font-family:var(--serif);font-size:clamp(17px,2.2vw,28px);font-weight:400;line-height:1.7;color:rgba(255,255,255,.92);letter-spacing:0px;}
+.statement-text .line{display:block;opacity:0;transform:translateY(16px);transition:opacity .9s,transform .9s;}
+.statement-text .line.vis{opacity:1;transform:translateY(0);}
+.statement-text .line:nth-child(2){transition-delay:.2s;}
+.statement-text .line:nth-child(3){transition-delay:.4s;}
+.statement-text .line:nth-child(4){transition-delay:.6s;}
+
+/* SECTIONS */
+.section{position:relative;padding:9rem 0;z-index:2;}
+.section.tinted{background:var(--bg2);}
+.section-inner{max-width:1320px;margin:0 auto;padding:0 3rem;}
+.sec-label{font-family:var(--mono);font-size:clamp(38px,5vw,64px);font-weight:600;letter-spacing:1px;line-height:1;margin-bottom:1.4rem;opacity:.9;}
+.sec-label.sub{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;margin-bottom:1rem;opacity:1;}
+.label-blue{color:var(--blue);}.label-purple{color:var(--purple);}.label-pink{color:var(--pink);}.label-lilac{color:var(--lilac);}
+.sec-heading{font-family:var(--serif);font-size:clamp(28px,3.5vw,48px);font-weight:400;color:var(--ink);line-height:1.1;margin-bottom:1.6rem;letter-spacing:-.5px;}
+.thin-rule{width:36px;height:1px;background:var(--border);margin-bottom:3rem;}
+.body-p{font-size:17px;font-weight:400;color:var(--ink3);line-height:2;margin-bottom:1.2rem;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.stat-card{background:rgba(20,24,38,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(133,150,220,.14);box-shadow:0 4px 24px rgba(90,127,212,.06),inset 0 1px 0 rgba(255,255,255,.03);padding:1.6rem 1.4rem;position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s;}
+.stat-card:hover{box-shadow:0 8px 40px rgba(133,96,212,.16);transform:translateY(-3px);}
+.stat-card::after{content:"";position:absolute;bottom:-20px;right:-20px;width:100px;height:100px;border-radius:50%;filter:blur(20px);pointer-events:none;}
+.stat-card:nth-child(1)::after{background:rgba(90,127,212,.2);}
+.stat-card:nth-child(2)::after{background:rgba(133,96,212,.2);}
+.stat-card:nth-child(3)::after{background:rgba(212,95,160,.18);}
+.stat-card:nth-child(4)::after{background:rgba(168,126,212,.2);}
+.stat-card:nth-child(1)::before{background:linear-gradient(to right,var(--blue),var(--purple));}
+.stat-card:nth-child(2)::before{background:linear-gradient(to right,var(--purple),var(--pink));}
+.stat-card:nth-child(3)::before{background:linear-gradient(to right,var(--pink),var(--lilac));}
+.stat-card:nth-child(4)::before{background:linear-gradient(to right,var(--lilac),var(--blue));}
+.stat-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;z-index:1;}
+.stat-val{font-family:var(--serif);font-size:26px;color:var(--ink);line-height:1;margin-bottom:.4rem;position:relative;z-index:2;}
+.stat-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:500;position:relative;z-index:2;}
+
+/* TIMELINE */
+.timeline-section{position:relative;z-index:2;}
+
+.tl-outer{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 3rem;
+  align-items:start;
+}
+
+.tl-left-panel{
+  position:sticky;
+  top:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-right:3rem;
+}
+
+.tl-right-panel{
+  padding:8rem 0 10rem 4rem;
+  position:relative;
+}
+
+.tl-track{ position:relative; padding-left:3rem; }
+.tl-track::before{ content:""; position:absolute; left:0; top:0; width:1px; height:0; background:linear-gradient(to bottom,var(--blue),var(--purple),var(--pink)); }
+.tl-entry{
+  position:relative;
+  margin-bottom:3.5rem;
+  opacity:0; transform:translateX(-16px);
+  transition:opacity .6s, transform .6s;
+}
+.tl-entry.vis{ opacity:1; transform:translateX(0); }
+.tl-entry::before{content:"";position:absolute;left:-3rem;top:8px;width:10px;height:10px;border-radius:50%;border:2px solid var(--purple);background:var(--bg);transform:translateX(-4px);transition:background .3s,box-shadow .3s;}
+.tl-entry.vis::before{background:var(--purple);box-shadow:0 0 0 4px rgba(133,96,212,.12);}
+.tl-entry:nth-child(3n+1)::before{border-color:var(--blue);}
+.tl-entry:nth-child(3n+1).vis::before{background:var(--blue);box-shadow:0 0 0 4px rgba(90,127,212,.12);}
+.tl-entry:nth-child(3n+2)::before{border-color:var(--purple);}
+.tl-entry:nth-child(3n)::before{border-color:var(--pink);}
+.tl-entry:nth-child(3n).vis::before{background:var(--pink);box-shadow:0 0 0 4px rgba(212,95,160,.12);}
+.tl-tag{display:inline-block;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:.6rem;}
+.tag-work{background:rgba(90,127,212,.12);color:var(--blue);border:1px solid rgba(90,127,212,.2);}
+.tag-lead{background:rgba(133,96,212,.12);color:var(--purple);border:1px solid rgba(133,96,212,.2);}
+.tag-vol{background:rgba(212,95,160,.10);color:var(--pink);border:1px solid rgba(212,95,160,.2);}
+.tag-edu{background:rgba(168,126,212,.12);color:var(--lilac);border:1px solid rgba(168,126,212,.2);}
+.tl-date{font-size:13px;font-weight:500;color:var(--ink3);margin-bottom:.3rem;letter-spacing:.5px;font-family:var(--mono);}
+.tl-role{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:.2rem;}
+.tl-org{font-size:15px;font-weight:500;color:var(--muted);margin-bottom:.8rem;}
+.tl-pts{list-style:none;}
+.tl-pts li{font-size:15px;color:var(--ink3);line-height:1.8;padding-left:1rem;position:relative;margin-bottom:2px;}
+.tl-pts li::before{content:"·";position:absolute;left:0;color:var(--lilac);font-size:16px;top:-1px;}
+
+/* LEADERSHIP compact list */
+.lead-compact-wrap{ margin-top:1rem; }
+.lead-compact-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+.lead-compact-row{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:1rem 0;border-bottom:1px solid var(--border);
+  opacity:0;transform:translateX(-8px);transition:opacity .5s,transform .5s;
+}
+.lead-compact-row.vis{opacity:1;transform:translateX(0);}
+.lead-compact-left{display:flex;flex-direction:column;gap:.2rem;}
+.lead-compact-role{font-size:15px;color:var(--ink2);font-weight:500;}
+.lead-compact-org{font-size:13px;color:var(--muted);}
+.lead-compact-date{font-size:12px;color:var(--light);letter-spacing:.5px;white-space:nowrap;font-family:var(--mono);}
+
+/* PROJECTS + SKILLS */
+.ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.proj-card{background:rgba(16,19,31,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(133,150,220,.14);box-shadow:0 8px 32px rgba(90,127,212,.06),inset 0 1px 0 rgba(255,255,255,.03);padding:2rem;position:relative;overflow:hidden;margin-bottom:1.5rem;opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s,box-shadow .4s;}
+.proj-card.vis{opacity:1;transform:translateY(0);}
+.proj-card:hover{box-shadow:0 16px 48px rgba(90,127,212,.14);border-color:rgba(133,150,220,.32);}
+.proj-num{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;font-weight:500;}
+.proj-name{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:.3rem;}
+.proj-period{font-size:13px;color:var(--muted);margin-bottom:1rem;letter-spacing:.5px;font-weight:500;}
+.proj-desc{font-size:15px;color:var(--ink3);line-height:1.9;margin-bottom:1.4rem;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.proj-tag{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;padding:3px 10px;border-radius:20px;background:rgba(133,150,220,.06);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--ink);}
+.skills-col-wrap{display:flex;flex-direction:column;gap:2.5rem;}
+.skill-group{margin-bottom:.5rem;}
+.skill-group-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+.skill-group:nth-child(1) .skill-group-title{color:var(--blue);}
+.skill-group:nth-child(2) .skill-group-title{color:var(--purple);}
+.skill-bar-item{margin-bottom:.8rem;}
+.skill-bar-label{display:flex;justify-content:space-between;font-size:14px;color:var(--ink);margin-bottom:.35rem;}
+.skill-bar-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.skill-bar-fill{height:100%;border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.22,1,.36,1);background:linear-gradient(to right,var(--blue),var(--purple));}
+.skill-group:nth-child(2) .skill-bar-fill{background:linear-gradient(to right,var(--purple),var(--pink));}
+.cert-list{margin-top:.5rem;}
+.cert-title{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--lilac);margin-bottom:1rem;font-weight:500;}
+.cert-entry{display:flex;align-items:flex-start;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--border);opacity:0;transform:translateX(-8px);transition:opacity .5s,transform .5s;}
+.cert-entry.vis{opacity:1;transform:translateX(0);}
+.cert-dot{width:6px;height:6px;border-radius:50%;border:1.5px solid var(--blue);flex-shrink:0;margin-top:5px;}
+.cert-name{font-size:15px;font-weight:400;color:var(--ink3);line-height:1.6;}
+
+/* PROGRAMMING NOTE (small, de-emphasised) */
+.prog-note{font-size:13px;color:var(--muted);line-height:1.9;padding-top:.5rem;}
+.prog-note b{color:var(--ink3);font-weight:500;}
+
+/* TOOLS */
+.tools-wrap{margin-top:3rem;}
+.tools-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;color:var(--pink);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);}
+.tools-tags{display:flex;flex-wrap:wrap;gap:.6rem;}
+.tool-tag{font-size:12px;letter-spacing:1px;font-weight:500;padding:7px 16px;border-radius:20px;background:rgba(133,150,220,.06);border:1px solid var(--border);color:var(--ink);transition:border-color .3s,color .3s,transform .2s;}
+.tool-tag:hover{border-color:var(--purple);color:#fff;transform:translateY(-2px);}
+
+/* COMPETITIONS */
+.comp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.comp-card{background:rgba(16,19,31,.55);border:1px solid var(--border);padding:0;text-align:left;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s,border-color .3s;overflow:hidden;display:flex;flex-direction:column;}
+.comp-card.vis{opacity:1;transform:translateY(0);}
+.comp-card:hover{border-color:rgba(133,150,220,.35);}
+.comp-card-body{padding:1.8rem 1.6rem;}
+.comp-icon{width:34px;height:2px;margin-bottom:1.2rem;}
+.comp-card:nth-child(1) .comp-icon{background:linear-gradient(to right,var(--blue),var(--purple));}
+.comp-card:nth-child(2) .comp-icon{background:linear-gradient(to right,var(--purple),var(--pink));}
+.comp-card:nth-child(3) .comp-icon{background:linear-gradient(to right,var(--pink),var(--lilac));}
+.comp-name{font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:.6rem;}
+.comp-desc{font-size:14px;color:var(--ink3);line-height:1.8;margin-bottom:.8rem;}
+.comp-badge{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:500;}
+.comp-cert-badge-top{width:100%;height:auto;display:block;border-bottom:1px solid var(--border);}
+
+/* PROJECT SHOWCASE (full-width carousel blocks) */
+.proj-showcase-wrap{display:flex;flex-direction:column;gap:7rem;}
+.proj-block{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s;}
+.proj-block.vis{opacity:1;transform:translateY(0);}
+.proj-block-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:3.5rem;align-items:center;}
+.proj-block:nth-child(even) .proj-block-grid{grid-template-columns:1fr 1.15fr;}
+.proj-block:nth-child(even) .proj-carousel{order:2;}
+.proj-block:nth-child(even) .proj-block-text{order:1;}
+
+.proj-carousel{position:relative;width:100%;border-radius:8px;overflow:hidden;border:1px solid var(--border);display:flex;flex-direction:column;}
+.proj-carousel-media{position:relative;width:100%;background:linear-gradient(135deg,rgba(90,127,212,.10),rgba(212,95,160,.08));transition:height .35s cubic-bezier(.22,1,.36,1);}
+.proj-carousel-track{display:flex;height:100%;transition:transform .5s cubic-bezier(.22,1,.36,1);}
+.proj-carousel-slide{min-width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;padding:.75rem;}
+.proj-carousel-slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;}
+.proj-carousel-caption-bar{padding:11px 16px;font-size:12px;letter-spacing:.3px;color:rgba(255,255,255,.8);background:#0b0d16;border-top:1px solid var(--border);min-height:38px;display:flex;align-items:center;}
+.proj-carousel-placeholder{position:relative;z-index:1;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);line-height:2;}
+.proj-carousel-placeholder .ph-file{color:var(--lilac);display:block;margin-bottom:.4rem;}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;background:rgba(8,10,18,.55);backdrop-filter:blur(10px);border:1px solid var(--border);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:6;font-size:16px;transition:background .2s,border-color .2s;}
+.carousel-btn:hover{background:rgba(133,96,212,.35);border-color:var(--purple);}
+.carousel-btn.prev{left:14px;}
+.carousel-btn.next{right:14px;}
+.carousel-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:6;}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:background .3s,width .3s;}
+.carousel-dot.active{background:#fff;width:18px;border-radius:4px;}
+.carousel-count{position:absolute;top:14px;right:14px;z-index:6;font-family:var(--mono);font-size:10px;letter-spacing:1px;color:rgba(255,255,255,.6);background:rgba(8,10,18,.55);padding:3px 9px;border-radius:20px;backdrop-filter:blur(8px);}
+
+.proj-block-text .proj-num{font-size:19px;letter-spacing:3px;color:var(--muted);font-weight:600;margin-bottom:1rem;}
+.proj-block-text .proj-name{font-size:26px;margin-bottom:.4rem;}
+.proj-block-text .proj-period{font-size:12px;margin-bottom:1.4rem;}
+.proj-block-text .proj-desc{font-size:16px;margin-bottom:1.6rem;}
+
+/* CONTACT */
+#contact{
+  position:relative;overflow:hidden;
+  background:linear-gradient(150deg,#1a1340 0%,#1e1050 35%,#2a1040 65%,#1a1830 100%);
+}
+#contact::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%,rgba(90,127,212,.15) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 80% at 80% 50%,rgba(212,95,160,.12) 0%,transparent 60%);}
+#contact .section-inner{
+  position:relative;z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:2.5rem 4rem;
+  max-width:100%;
+}
+.footer-left{ display:flex;flex-direction:column;gap:.4rem; }
+.footer-name{
+  font-family:var(--mono);font-size:15px;font-weight:500;
+  color:rgba(255,255,255,.85);
+  letter-spacing:1px;
+}
+.footer-copy{ font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);font-weight:400; }
+.footer-mid{
+  display:flex;align-items:center;gap:2.5rem;
+}
+.contact-email{
+  font-family:var(--serif);font-size:15px;
+  color:rgba(255,255,255,.85);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.25);
+  padding-bottom:2px;letter-spacing:.5px;
+  transition:color .3s, border-color .3s;
+}
+.contact-email:hover{ color:#fff; border-color:rgba(255,255,255,.6); }
+.footer-right{ display:flex;gap:2rem;align-items:center; }
+.contact-link{
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,.85);text-decoration:none;transition:color .3s;font-weight:500;
+}
+.contact-link:hover{color:#fff;}
+.breath{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);}
+
+/* EDUCATION */
+.edu-diploma-strip{
+  display:flex;
+  align-items:stretch;
+  gap:0;
+  margin-bottom:3.5rem;
+  border:1px solid var(--border);
+  overflow:hidden;
+}
+.edu-strip-left{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  padding:1.5rem 1.8rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:100px;
+  max-width:100px;
+  text-align:center;
+}
+.edu-strip-left .edu-year{
+  font-family:var(--serif);font-size:22px;font-weight:300;
+  color:#fff;line-height:1.3;margin-bottom:0;
+}
+.edu-strip-right{
+  padding:2rem 2.5rem;
+  flex:1;
+  background:rgba(16,19,31,.55);
+  backdrop-filter:blur(12px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:left;
+}
+.edu-strip-right .tl-role{ font-size:24px; margin-bottom:.25rem; }
+.edu-strip-right .tl-org{ margin-bottom:1rem; }
+.edu-modules{
+  display:flex;flex-wrap:wrap;gap:.4rem;
+}
+.edu-module{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;
+  padding:3px 10px;border-radius:20px;
+  background:rgba(168,126,212,.08);
+  border:1px solid rgba(168,126,212,.28);
+  color:var(--lilac);
+}
+
+.cert-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.2rem;
+  text-align:left;
+  align-items:start;
+}
+@media(max-width:960px){ .cert-row{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:600px){ .cert-row{grid-template-columns:1fr;} }
+.cert-pill{
+  display:flex;flex-direction:column;align-items:stretch;
+  border:1px solid var(--border);
+  background:rgba(16,19,31,.5);
+  opacity:0;transform:translateY(10px);
+  transition:opacity .5s,transform .5s,border-color .3s;
+  overflow:hidden;
+}
+.cert-pill.vis{ opacity:1;transform:translateY(0); }
+.cert-pill:hover{border-color:rgba(133,150,220,.35);}
+.cert-badge{
+  width:100%;height:auto;display:block;
+  border-bottom:1px solid var(--border);
+}
+.cert-pill-row{display:flex;align-items:flex-start;gap:.7rem;padding:1rem 1.2rem 1.2rem;}
+.cert-pill-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;
+}
+.cert-pill:nth-child(1) .cert-pill-dot{ background:var(--blue); }
+.cert-pill:nth-child(2) .cert-pill-dot{ background:var(--purple); }
+.cert-pill:nth-child(3) .cert-pill-dot{ background:var(--pink); }
+.cert-pill:nth-child(4) .cert-pill-dot{ background:var(--lilac); }
+.cert-pill:nth-child(5) .cert-pill-dot{ background:var(--blue); }
+.cert-pill:nth-child(6) .cert-pill-dot{ background:var(--purple); }
+.cert-pill-body{display:flex;flex-direction:column;gap:.15rem;}
+.cert-pill-name{ font-size:14px;color:var(--ink);line-height:1.5;font-weight:400; }
+.cert-pill-date{ font-size:11px;color:var(--muted);letter-spacing:.5px;font-family:var(--mono); }
+
+/* AWARDS - same pill treatment as certs, own labeled row so it doesn't float loose */
+.award-pill .cert-pill-dot{ background:var(--pink) !important; }
+.award-tag{
+  display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  color:var(--pink);margin-bottom:.25rem;
+}
+
+@media(max-width:768px){
+  .edu-diploma-strip{ flex-direction:column; }
+  .edu-strip-left{ min-width:unset;padding:1.5rem; }
+  .comp-row{grid-template-columns:1fr;}
+  .proj-block-grid, .proj-block:nth-child(even) .proj-block-grid{grid-template-columns:1fr;}
+  .proj-block:nth-child(even) .proj-carousel,.proj-block:nth-child(even) .proj-block-text{order:initial;}
+}
+
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem;}.nav-links{gap:1.2rem;}
+  .about-grid,.ps-grid{grid-template-columns:1fr;gap:3rem;}
+  .section-inner{padding:0 1.5rem;}
+  .tl-outer{grid-template-columns:1fr;padding:0 1.5rem;}
+  .tl-left-panel{
+    position:relative;height:auto;
+    padding:4rem 0 2rem;
+    border-right:none;border-bottom:1px solid var(--border);
+    margin-bottom:2rem;
+  }
+  .tl-right-panel{padding:2rem 0 6rem 2rem;}
+  .tl-track{padding-left:2rem;}
+  body{cursor:auto;}#cursor-dot,#cursor-ring{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="particles"></div>
+
+<nav id="main-nav">
+  <div class="nav-name">Rachel</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="parallax-bg" id="parallax-bg"></div>
+  <div class="orb orb-1" id="orb1"></div>
+  <div class="orb orb-2" id="orb2"></div>
+  <div class="orb orb-3" id="orb3"></div>
+  <div class="orb orb-4" id="orb4"></div>
+
+  <div class="hero-inner">
+    <p class="hero-pre">Cybersecurity & Digital Forensics · Nanyang Polytechnic</p>
+    <h1 class="terminal-output"><span id="typed-name"></span><span class="cursor-blink">_</span></h1>
+    <div class="hero-rule" id="hero-rule"></div>
+    </div>
+
+  <div class="scroll-cue" id="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+
+<section class="section" id="about">
+  <div class="section-inner" style="text-align:center;">
+    <p class="sec-label label-purple">01</p>
+    <div class="terminal-name">
+      <p class="terminal-prompt about-heading" style="font-size:clamp(28px,3vw,42px)">$ whoami</p>
+    </div>
+    <div class="thin-rule" style="margin:0 auto 3rem;"></div>
+    <div style="max-width:700px;margin:0 auto;text-align:left;">
+      <p class="body-p">I am a Cybersecurity & Digital Forensics student at Nanyang Polytechnic, with experience in strategic planning and horizon scanning at the Cyber Security Agency of Singapore and the Ministry of Home Affairs.</p>
+      <p class="body-p">Beyond that, I have worked with the Singapore Police Force and the Institute of Mental Health, and served as Vice-President of NYP Civil Defence Lionhearters - experiences that shaped how I think about security, responsibility, and people.</p>
+      <p class="body-p">I want to build a career in public service where the work is serious, the purpose is real, and what you do genuinely matters in people's lives.</p>
+    </div>
+  </div>
+</section>
+<div class="breath"></div>
+
+<section class="section" id="projects">
+  <div class="section-inner">
+    <p class="sec-label label-pink" style="text-align:center;">02</p>
+    <h2 class="sec-heading" style="text-align:center;">IT Projects</h2>
+    <div class="thin-rule" style="margin:0 auto 4.5rem;"></div>
+
+    <div class="proj-showcase-wrap">
+
+      <!-- PROJECT 1 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="defense"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 01</p>
+            <p class="proj-name">Cybersecurity Defense Tools Implementation</p>
+            <p class="proj-period">Apr 2026 - Aug 2026</p>
+            <p class="proj-desc">Built a layered defense stack consisting of Wazuh for SIEM and active response, Authentik for identity and session management, and Cowrie as an SSH honeypot. I also integrated a local LLM (Ollama, Llama 3.2) to auto-triage alerts into a structured Analysis / Recommendation / Risk rating, scoped correctly to each layer. Red-teamed the stack with Hydra brute-force attacks and Burp Suite session-hijacking / cookie replay attempts to validate real-world detection and mitigation of identity-based attacks.</p>
+            <div class="proj-tags"><span class="proj-tag">Wazuh</span><span class="proj-tag">Authentik</span><span class="proj-tag">Cowrie</span><span class="proj-tag">Ollama / LLM</span><span class="proj-tag">Hydra</span><span class="proj-tag">Burp Suite</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="vuln"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 02</p>
+            <p class="proj-name">Vulnerability Assessment & Penetration Test</p>
+            <p class="proj-period">May 2026 - Aug 2026</p>
+            <p class="proj-desc">Conducted a full vulnerability assessment and security audit against a Windows Server 2012 target, from reconnaissance through exploitation to privilege escalation. Used Nmap for service enumeration, exploited an unauthenticated RCE (CVE-2014-6287) via Metasploit to gain initial access as a standard user, then escalated to SYSTEM through a misconfigured, user-restartable Windows service. Delivered a vulnerability assessment report with 15 findings and risk ratings, manually validating and ruling out false positives.</p>
+            <div class="proj-tags"><span class="proj-tag">Nmap</span><span class="proj-tag">Metasploit</span><span class="proj-tag">Privilege Escalation</span><span class="proj-tag">Risk Assessment</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="forensics"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 03</p>
+            <p class="proj-name">Digital Forensics Examination Report</p>
+            <p class="proj-period">May 2026 - Aug 2026</p>
+            <p class="proj-desc">A school-directed digital forensics case study using EnCase to locate and document evidence of currency counterfeiting, passport counterfeiting, and credit card information theft. Produced a full examiner's report consisting of case metadata, evidence acquisition, documented findings, and followed standard chain-of-custody and examination-report conventions.</p>
+            <div class="proj-tags"><span class="proj-tag">Digital Forensics</span><span class="proj-tag">EnCase</span><span class="proj-tag">Chain of Custody</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="foresight"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 04</p>
+            <p class="proj-name">Foresight - Horizon Scanning Platform</p>
+            <p class="proj-period">Mar 2026 - Aug 2026</p>
+            <p class="proj-desc">A news intelligence crawler and dashboard that pulls signals from 50+ RSS feeds and news sources, classifying them into monitored domains (cyber threats & scams, extremism, border security, drugs, financial crime, and more). Tracks signal volume and trend growth per domain over time, and auto-generates monthly intelligence briefs and annual reports, with the option to send newsletters directly to recipients.</p>
+            <div class="proj-tags"><span class="proj-tag">Data Pipeline</span><span class="proj-tag">Trend Analysis</span><span class="proj-tag">Automated Reporting</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="splunk"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 05</p>
+            <p class="proj-name">Splunk Dashboard and Analysis</p>
+            <p class="proj-period">May 2026 - Aug 2026</p>
+            <p class="proj-desc">I built a 3-part Splunk dashboard analyzing 236,844 HDB resale transactions (Jan 2017 - Jul 2026) to guide a first-time buyer through an affordability-based purchase decision. I designed custom derived metrics to move past raw averages into decision-ready insights. I also structured the analysis across three dashboards: market-wide price trends, town-level affordability shortlisting, and flat-level trade-offs (lease length, floor area, storey level, flat model), concluding with a data-backed recommendation weighing three purchase options against value, price, and risk.</p>
+            <div class="proj-tags"><span class="proj-tag">Splunk</span><span class="proj-tag">Data Analysis</span><span class="proj-tag">Dashboard Building</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 6 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="nest"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 06</p>
+            <p class="proj-name">NeighbourlyNest</p>
+            <p class="proj-period">Oct 2025 - Feb 2026</p>
+            <p class="proj-desc">Secure community web application with API key handling, anomaly logging, and server-side input validation to mitigate SQL injection and XSS risks.</p>
+            <div class="proj-tags"><span class="proj-tag">Secure API</span><span class="proj-tag">Input Validation</span><span class="proj-tag">Anomaly Logging</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 7 -->
+      <div class="proj-block">
+        <div class="proj-block-grid">
+          <div class="proj-carousel" data-carousel data-project="ecostile"></div>
+          <div class="proj-block-text">
+            <p class="proj-num">Project 07</p>
+            <p class="proj-name">EcoStile</p>
+            <p class="proj-period">Apr 2025 - Aug 2025</p>
+            <p class="proj-desc">Sustainable thrift store platform with a secure donation workflow using Shelve and JSON, and structured input validation to strengthen application integrity.</p>
+            <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">JSON</span><span class="proj-tag">Secure Workflow</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="breath"></div>
+
+<section class="timeline-section tinted" id="experience">
+  <div class="tl-outer">
+
+    <!-- LEFT: sticky panel - stays in view whole time -->
+    <div class="tl-left-panel">
+      <div>
+        <p class="sec-label label-blue" style="margin-bottom:.6rem;">03</p>
+        <h2 class="sec-heading" style="font-size:clamp(28px,3vw,42px);margin-bottom:1.2rem;letter-spacing:1px;">Experience</h2>
+        <div class="thin-rule"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: timeline scrolls -->
+    <div class="tl-right-panel">
+      <p class="sec-label sub label-blue" style="text-align:left;margin-bottom:1.5rem;">Work Experience</p>
+      <div class="tl-track" id="tl-work">
+        <div class="tl-entry"><span class="tl-tag tag-work">Work</span><p class="tl-date">Sep 2026 - Feb 2027</p><p class="tl-role">Strategy and Planning Intern</p><p class="tl-org">Cyber Security Agency of Singapore &middot; Strategy and Planning Division</p><ul class="tl-pts"><li>Facilitated the FY2027 strategic planning cycle by designing a senior leadership retreat to define key organisational priorities and long-term agendas</li><li>Translated complex insights from executive brainstorming sessions into actionable divisional workplans to guide organisation-wide operations</li><li>Managed end-to-end project lifecycles, including program design, logistics coordination, and the production of briefing materials for decision-makers</li></ul></div>
+        <div class="tl-entry"><span class="tl-tag tag-work">Work</span><p class="tl-date">Mar 2026 - Apr 2026</p><p class="tl-role">Strategic Planning Intern</p><p class="tl-org">Ministry of Home Affairs &middot; Planning &amp; Organisation Division</p><ul class="tl-pts"><li>Identified emerging national security trends through horizon scanning and strategic foresight analysis</li><li>Developed an internal Horizon Scanning platform to automate environmental scanning, reducing manual data collection time and streamlining the identification of emerging security trends</li><li>Contributed to a Horizon Scanning Report supporting long-term strategic planning and policy development</li></ul></div>
+        <div class="tl-entry"><span class="tl-tag tag-work">Work</span><p class="tl-date">Nov 2022 - Jan 2023</p><p class="tl-role">Sales Associate (Part-Time)</p><p class="tl-org">My Uniform Shop</p><ul class="tl-pts"><li>Assisted customers and handled transactions with accuracy and professionalism in a high-volume environment</li></ul></div>
+      </div>
+
+      <p class="sec-label sub label-pink" style="text-align:left;margin:3.5rem 0 1.5rem;">Leadership &amp; Volunteering</p>
+      <div class="tl-track" id="tl-lead">
+        <div class="tl-entry"><span class="tl-tag tag-lead">Leadership</span><p class="tl-date">Apr 2025 - Apr 2026</p><p class="tl-role">Vice-President</p><p class="tl-org">NYP Civil Defence Lionhearters</p><ul class="tl-pts"><li>Oversaw club operations, strategic planning, and coordination across internal teams and external stakeholders</li><li>Led recruitment initiatives that brought in 50+ new members</li><li>Managed event booths for major campus activities</li></ul></div>
+        <div class="tl-entry"><span class="tl-tag tag-vol">Volunteer</span><p class="tl-date">Jul 2026 - Present</p><p class="tl-role">Volunteer &middot; Cyber-Cop</p><p class="tl-org">Singapore Police Force</p><ul class="tl-pts"><li>Identified and reported online scam activities to safeguard Singapore's cyberspace</li><li>Supported crime prevention through online engagement to educate others about cyber scams</li></ul></div>
+      </div>
+
+      <div class="lead-compact-wrap">
+        <p class="lead-compact-title">Also volunteering with</p>
+        <div class="lead-compact-row"><div class="lead-compact-left"><span class="lead-compact-role">Volunteer</span><span class="lead-compact-org">Central Narcotics Bureau - DrugFreeSG Advocacy Network</span></div><span class="lead-compact-date">Jul 2026 - Present</span></div>
+        <div class="lead-compact-row"><div class="lead-compact-left"><span class="lead-compact-role">Volunteer</span><span class="lead-compact-org">Yellow Ribbon Project</span></div><span class="lead-compact-date">Jul 2026 - Present</span></div>
+        <div class="lead-compact-row"><div class="lead-compact-left"><span class="lead-compact-role">Volunteer</span><span class="lead-compact-org">Institute of Mental Health (IMH)</span></div><span class="lead-compact-date">Jun 2025 - Present</span></div>
+        <div class="lead-compact-row"><div class="lead-compact-left"><span class="lead-compact-role">Volunteer &middot; Citizens on Patrol</span><span class="lead-compact-org">Singapore Police Force</span></div><span class="lead-compact-date">Oct 2025 - Present</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="breath"></div>
+
+<section class="section tinted" id="education">
+  <div class="section-inner" style="text-align:center;">
+    <p class="sec-label label-lilac">04</p>
+    <h2 class="sec-heading">Education</h2>
+    <div class="thin-rule" style="margin:0 auto 3.5rem;"></div>
+
+    <!-- Diploma strip -->
+    <div class="edu-diploma-strip">
+      <div class="edu-strip-left">
+        <div class="edu-year">2024 - 2027</div>
+      </div>
+      <div class="edu-strip-right">
+        <span class="tl-tag tag-edu" style="align-self:flex-start;margin-bottom:.8rem;">Diploma</span>
+        <p class="tl-role">Cybersecurity &amp; Digital Forensics</p>
+        <p class="tl-org">Nanyang Polytechnic</p>
+        <div class="edu-modules">
+          <span class="edu-module">Network Security</span>
+          <span class="edu-module">OS &amp; Administration</span>
+          <span class="edu-module">Cyber Forensic Technologies</span>
+          <span class="edu-module">Digital Forensics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <p class="sec-label sub label-lilac" style="margin-bottom:1.5rem;text-align:left;">Certifications</p>
+    <div class="cert-row">
+      <!-- Each cert-badge img points to a placeholder filename below. Drop your scanned certificate/badge image
+           into an images/certs/ folder next to this HTML file using that exact filename and it will appear automatically.
+           The onerror attribute hides the image gracefully (falling back to just the dot + text) if the file isn't
+           there yet, so you can add these one at a time without breaking the layout. -->
+      <div class="cert-pill">
+        <img class="cert-badge" src="images/certs/chfi.png" alt="CHFI badge" onerror="this.style.display='none'">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><div class="cert-pill-name">EC-Council Computer Hacking Forensic Investigator (CHFI)</div><span class="cert-pill-date">14 Mar 2025</span></div>
+        </div>
+      </div>
+      <div class="cert-pill">
+        <img class="cert-badge" src="images/certs/cyber-fundamentals.png" alt="Cybersecurity Fundamentals badge" onerror="this.style.display='none'">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><div class="cert-pill-name">Cybersecurity Fundamentals - IBM SkillsBuild</div><span class="cert-pill-date">22 May 2024</span></div>
+        </div>
+      </div>
+      <div class="cert-pill">
+        <img class="cert-badge" src="images/certs/google-cybersecurity.png" alt="Google Cybersecurity badge" onerror="this.style.display='none'">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><div class="cert-pill-name">Google Cybersecurity Certificate</div><span class="cert-pill-date">24 Aug 2024</span></div>
+        </div>
+      </div>
+      <div class="cert-pill">
+        <img class="cert-badge" src="images/certs/google-data-analytics.png" alt="Google Data Analytics badge" onerror="this.style.display='none'">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><div class="cert-pill-name">Google Data Analytics Professional Certificate</div><span class="cert-pill-date">1 Sep 2024</span></div>
+        </div>
+      </div>
+      <div class="cert-pill">
+        <img class="cert-badge" src="images/certs/tryhackme.png" alt="TryHackMe badge" onerror="this.style.display='none'">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><div class="cert-pill-name">TryHackMe Jr Penetration Tester Lite</div></div>
+        </div>
+      </div>
+      <div class="cert-pill">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><div class="cert-pill-name">Singapore Heart Foundation Basic First Aid + AED Provider</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Awards -->
+    <p class="sec-label sub label-lilac" style="margin:2.5rem 0 1.5rem;text-align:left;">Awards</p>
+    <div class="cert-row">
+      <div class="cert-pill award-pill">
+        <img class="cert-badge" src="images/certs/directors-list.png" alt="Director's List certificate" onerror="this.style.display='none'">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><span class="award-tag">Award</span><div class="cert-pill-name">Director's List 25/26 - Top 15% of cohort</div></div>
+        </div>
+      </div>
+      <div class="cert-pill award-pill">
+        <div class="cert-pill-row">
+          <div class="cert-pill-dot"></div>
+          <div class="cert-pill-body"><span class="award-tag">Award</span><div class="cert-pill-name">Centennial Fund Award</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitions -->
+    <p class="sec-label sub label-lilac" style="margin:2.5rem 0 1.5rem;text-align:left;">Competitions</p>
+    <div class="comp-row">
+      <div class="comp-card">
+        <div class="comp-card-body"><div class="comp-icon"></div><p class="comp-name">SIM-LSE Data Analytics Challenge</p><p class="comp-desc">Applied data analytics techniques to a case-based business challenge as part of a national inter-institution competition.</p><span class="comp-badge">Participant</span></div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-card-body"><div class="comp-icon"></div><p class="comp-name">BrainHack Challenge</p><p class="comp-desc">Competed in DSTA's national tech challenge, applying problem-solving and technical skills under time pressure.</p><span class="comp-badge">Participant</span></div>
+      </div>
+      <div class="comp-card">
+        <img class="comp-cert-badge-top" src="images/certs/sieber-ctf.png" alt="Sieber CTF certificate" onerror="this.style.display='none'">
+        <div class="comp-card-body"><div class="comp-icon"></div><p class="comp-name">Sieber CTF</p><p class="comp-desc">Solved capture-the-flag security challenges spanning multiple domains against other competitors.</p><span class="comp-badge">Participant</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="breath"></div>
+
+<section class="section tinted" id="skills">
+  <div class="section-inner">
+    <p class="sec-label label-purple" style="text-align:center;">05</p>
+    <h2 class="sec-heading" style="text-align:center;">Capabilities</h2>
+    <div class="thin-rule" style="margin:0 auto 3.5rem;"></div>
+
+    <div style="max-width:800px;margin:0 auto;">
+      <div class="skills-col-wrap">
+        <div class="skill-group"><p class="skill-group-title">Cybersecurity & Forensics</p>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>Digital Forensics & Evidence Acquisition</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>Vulnerability Assessment & Penetration Testing</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>SIEM & Threat Detection</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>Secure Application Development</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div></div>
+        </div>
+        <div class="skill-group"><p class="skill-group-title">Strategic & Analytical</p>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>Strategic Foresight & Horizon Scanning</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>Data Analytics & Visualisation</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-label"><span>Cross-Functional Leadership</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+        </div>
+      </div>
+
+
+
+      <div class="tools-wrap">
+        <p class="tools-title">Tools</p>
+        <div class="tools-tags">
+          <span class="tool-tag">Linux</span>
+          <span class="tool-tag">EnCase</span>
+          <span class="tool-tag">Autopsy</span>
+          <span class="tool-tag">FTK Imager</span>
+          <span class="tool-tag">Wireshark</span>
+          <span class="tool-tag">Burp Suite</span>
+          <span class="tool-tag">Tableau</span>
+          <span class="tool-tag">MySQL Workbench</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer id="contact">
+  <div class="section-inner">
+    <!-- Left: name + copyright -->
+    <div class="footer-left">
+      <span class="footer-name">Rachel</span>
+      <span class="footer-copy">© 2026 · Singapore</span>
+    </div>
+    <!-- Mid: email -->
+    <div class="footer-mid">
+      <a href="mailto:rachelforworkk@gmail.com" class="contact-email">rachelforworkk@gmail.com</a>
+    </div>
+    <!-- Right: links -->
+    <div class="footer-right">
+      <a href="https://www.linkedin.com/in/rachel-ng-jingwen/" class="contact-link">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const stroke = document.getElementById("rachel-stroke");
+  const fill   = document.getElementById("rachel-fill");
+  if(!stroke || !fill) return;
+
+  const len = stroke.getTotalLength();
+
+  stroke.style.strokeDasharray  = len;
+  stroke.style.strokeDashoffset = len;
+
+  const DRAW_DELAY    = 800;
+  const DRAW_DURATION = 8000;
+  const FILL_DELAY    = DRAW_DELAY + DRAW_DURATION * 0.28;
+  const FILL_DURATION = 900;
+
+  setTimeout(() => {
+    stroke.style.transition = "stroke-dashoffset " + DRAW_DURATION + "ms cubic-bezier(0.4, 0, 0.2, 1)";
+    stroke.style.strokeDashoffset = "0";
+  }, DRAW_DELAY);
+
+  setTimeout(() => {
+    fill.style.opacity = "1";
+  }, FILL_DELAY);
+
+  setTimeout(() => {
+    stroke.style.transition = "opacity 0.8s ease";
+    stroke.style.opacity = "0";
+  }, DRAW_DELAY + DRAW_DURATION + 400);
+
+  const totalTime = DRAW_DELAY + DRAW_DURATION + 200;
+
+  setTimeout(() => {
+    const rule = document.getElementById("hero-rule");
+    rule.style.transition = "opacity 0.8s ease";
+    rule.style.opacity = "1";
+  }, totalTime);
+
+  setTimeout(() => {
+    const sc = document.getElementById("scroll-cue");
+    sc.style.transition = "opacity 0.6s ease";
+    sc.style.opacity = "1";
+  }, 1800);
+})();
+
+
+
+(function(){
+  const c=document.getElementById("particles");
+  const cols=["rgba(90,127,212,","rgba(133,96,212,","rgba(212,95,160,","rgba(168,126,212,"];
+  for(let i=0;i<28;i++){
+    const d=document.createElement("div");d.className="particle";
+    const s=Math.random()*4+2,col=cols[Math.floor(Math.random()*cols.length)],
+          l=Math.random()*100,delay=Math.random()*20,dur=Math.random()*20+18,a=Math.random()*.35+.15;
+    d.style.cssText="width:"+s+"px;height:"+s+"px;left:"+l+"%;bottom:-"+s+"px;background:"+col+a+");animation-duration:"+dur+"s;animation-delay:-"+delay+"s;box-shadow:0 0 "+(s*2)+"px "+col+(a*.5)+");";
+    c.appendChild(d);
+  }
+})();
+
+(function(){
+  const orbs=[
+    {el:document.getElementById("orb1"),sx:.025,sy:.018},
+    {el:document.getElementById("orb2"),sx:-.020,sy:.022},
+    {el:document.getElementById("orb3"),sx:.015,sy:-.025},
+    {el:document.getElementById("orb4"),sx:-.030,sy:-.015},
+  ];
+  let cx=window.innerWidth/2,cy=window.innerHeight/2;
+  document.addEventListener("mousemove",e=>{cx=e.clientX;cy=e.clientY;});
+
+  const scrollLayers = [
+    { el: document.getElementById("parallax-bg"),        rate: -0.25 },
+    { el: document.querySelector(".hero-name-wrap"), rate: -0.12 },
+    { el: document.querySelector(".hero-pre"),       rate: -0.20 },
+    { el: document.getElementById("scroll-cue"),    rate:  0.08 },
+    { el: document.getElementById("orb1"),           rate: -0.18 },
+    { el: document.getElementById("orb2"),           rate: -0.10 },
+    { el: document.getElementById("orb3"),           rate:  0.14 },
+    { el: document.getElementById("orb4"),           rate:  0.22 },
+  ];
+
+  const sectionLayers = [];
+  document.querySelectorAll(".sec-heading").forEach(el => {
+    sectionLayers.push({ el, rate: 0.04 });
+  });
+  document.querySelectorAll(".body-p").forEach(el => {
+    sectionLayers.push({ el, rate: 0.02 });
+  });
+  document.querySelectorAll(".tl-role").forEach(el => {
+    sectionLayers.push({ el, rate: 0.03 });
+  });
+
+  let ticking = false;
+
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const sy = window.scrollY;
+      const vh = window.innerHeight;
+
+      if(sy < vh * 1.5){
+        scrollLayers.forEach(({el, rate}) => {
+          if(!el) return;
+          const offset = sy * rate;
+          el.style.transform = "translateY(" + offset + "px)";
+        });
+      }
+
+      sectionLayers.forEach(({el, rate}) => {
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height/2 - vh/2;
+        el.style.transform = "translateY(" + (center * rate) + "px)";
+      });
+
+      if(sy < vh * 1.5){
+        const dx = cx - window.innerWidth/2;
+        const dy = cy - window.innerHeight/2;
+        orbs.forEach(({el,sx,sy:msy},i) => {
+          const scrollT = scrollLayers.find(l => l.el === el);
+          const scrollOff = scrollT ? sy * scrollT.rate : 0;
+          el.style.transform = "translate(" + (dx*sx) + "px," + (dy*msy + scrollOff) + "px)";
+        });
+      }
+
+      ticking = false;
+    });
+  }
+
+  document.addEventListener("mousemove", e => {
+    cx = e.clientX; cy = e.clientY;
+    onScroll();
+  });
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+})();
+
+(function(){
+  const dot=document.getElementById("cursor-dot"),ring=document.getElementById("cursor-ring");
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+"px";dot.style.top=my+"px";});
+  (function lerp(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+"px";ring.style.top=ry+"px";requestAnimationFrame(lerp);})();
+  document.querySelectorAll("a,button,.stat-card,.proj-card,.comp-card,.carousel-btn,.carousel-dot").forEach(el=>{
+    el.addEventListener("mouseenter",()=>document.body.classList.add("cursor-hover"));
+    el.addEventListener("mouseleave",()=>document.body.classList.remove("cursor-hover"));
+  });
+})();
+
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;obs.unobserve(e.target);
+      const el=e.target,target=parseInt(el.dataset.target),suffix=el.dataset.suffix||"",dur=1400,start=performance.now();
+      (function step(now){const p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*target)+suffix;if(p<1)requestAnimationFrame(step);})(start);
+    });
+  },{threshold:.5});
+  document.querySelectorAll(".counter[data-mode=\"number\"]").forEach(c=>obs.observe(c));
+})();
+
+(function(){
+  const style=document.createElement("style");
+  style.textContent=".tl-track::before{height:var(--line-h,0);}";
+  document.head.appendChild(style);
+  function update(){
+    document.querySelectorAll(".tl-track").forEach(track=>{
+      const rect=track.getBoundingClientRect(),vh=window.innerHeight;
+      if(rect.top>vh)return;
+      track.style.setProperty("--line-h",Math.min((vh-rect.top)/rect.height,1)*rect.height+"px");
+    });
+  }
+  window.addEventListener("scroll",update,{passive:true});
+  update();
+})();
+
+(function(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;obs.unobserve(e.target);
+      e.target.querySelectorAll(".skill-bar-fill").forEach((bar,i)=>{
+        setTimeout(()=>{bar.style.width=bar.dataset.width+"%";},i*120);
+      });
+    });
+  },{threshold:.2});
+  document.querySelectorAll(".skill-group").forEach(g=>obs.observe(g));
+})();
+
+/* ============================================================
+   PROJECT CAROUSEL IMAGES
+   ------------------------------------------------------------
+   This is the ONLY place you need to edit to add, remove, or
+   reorder images in a project's carousel. Each project has a
+   key (matching data-project="..." on the carousel in the HTML)
+   and a list of images. Each image is one line: { src, caption }.
+
+   - To REMOVE an image: delete its line (or comment it out with // in front).
+   - To ADD an image: copy a line and change the src/caption.
+   - To REORDER: just move the lines around.
+   - Leave a project's array empty ([]) if you have no images yet -
+     it'll show a placeholder telling you what to add.
+   - src is the file path relative to this HTML file. Spaces in
+     filenames are fine as written below.
+   ============================================================ */
+const PROJECT_IMAGES = {
+  defense: [
+    { src: "images/projects/wazuh dashboard.png", caption: "Wazuh dashboard" },
+    { src: "images/projects/hydra.png", caption: "Hydra brute-force attack" },
+    { src: "images/projects/ollama.png", caption: "Ollama AI-generated analysis" },
+  ],
+  vuln: [
+    { src: "images/projects/nmap.png", caption: "Nmap scan results" },
+    { src: "images/projects/successful meterpreter.png", caption: "Metasploit - successful Meterpreter session" },
+    { src: "images/projects/privilege escalation.png", caption: "Privilege escalation to SYSTEM" },
+    { src: "images/projects/summary of vuln findings.png", caption: "Summary of findings" },
+  ],
+  forensics: [
+    { src: "images/projects/examiners report.png", caption: "Examiner's report excerpt" },
+  ],
+  foresight: [
+    { src: "images/projects/foresight dashboard.png", caption: "Dashboard - signal volume by domain" },
+    { src: "images/projects/foresight annual report.png", caption: "Auto-generated annual report" },
+    { src: "images/projects/foresight sources.png", caption: "News sources monitored" },
+  ],
+    splunk: [
+    { src: "images/projects/splunk.png", caption: "Splunk dashboard" },
+  ],
+  nest: [
+    { src: "images/projects/neighbourlynest homepage.jpg", caption: "Homepage" },
+    { src: "images/projects/neighbourlynest userchat.jpg", caption: "User chat" },
+  ],
+  ecostile: [
+    { src: "images/projects/ecostile homepage.jpg", caption: "Homepage" },
+  ],
+};
+
+/* CAROUSELS - builds itself from PROJECT_IMAGES above, no other edits needed.
+   Each carousel auto-sizes its own height to match the aspect ratio of
+   whichever image is currently showing (clamped between MIN_H and MAX_H),
+   so a short wide screenshot and a tall narrow one both display at a
+   readable size instead of being squeezed into one fixed box. */
+(function(){
+  const MIN_H = 280;
+  const MAX_H = 680;
+
+  function fitMediaToImage(media, imgEl){
+    if(!imgEl || !imgEl.naturalWidth) return;
+    const w = media.clientWidth || media.offsetWidth;
+    let h = w * (imgEl.naturalHeight / imgEl.naturalWidth);
+    h = Math.max(MIN_H, Math.min(MAX_H, h));
+    media.style.height = h + "px";
+  }
+
+  document.querySelectorAll("[data-carousel]").forEach(car=>{
+    const projectId = car.dataset.project;
+    const images = PROJECT_IMAGES[projectId] || [];
+
+    const media = document.createElement("div");
+    media.className = "proj-carousel-media";
+    const track = document.createElement("div");
+    track.className = "proj-carousel-track";
+    media.appendChild(track);
+
+    if(images.length === 0){
+      const slide = document.createElement("div");
+      slide.className = "proj-carousel-slide";
+      slide.innerHTML = '<div class="proj-carousel-placeholder"><span class="ph-file">images/projects/</span>Add images for this project in the PROJECT_IMAGES list in the HTML</div>';
+      track.appendChild(slide);
+      car.appendChild(media);
+      return;
+    }
+
+    const imgEls = [];
+
+    images.forEach((img,i)=>{
+      const slide = document.createElement("div");
+      slide.className = "proj-carousel-slide";
+      const imgEl = document.createElement("img");
+      imgEl.src = img.src;
+      imgEl.alt = img.caption || "";
+      imgEl.onload = function(){ if(i === idx) fitMediaToImage(media, imgEl); };
+      imgEl.onerror = function(){
+        slide.innerHTML = '<div class="proj-carousel-placeholder"><span class="ph-file">'+img.src+'</span>Image not found - check the file is in this folder</div>';
+      };
+      slide.appendChild(imgEl);
+      track.appendChild(slide);
+      imgEls.push(imgEl);
+    });
+    car.appendChild(media);
+
+    const captionBar = document.createElement("div");
+    captionBar.className = "proj-carousel-caption-bar";
+    captionBar.textContent = images[0].caption || "";
+    if(!images.some(im=>im.caption)) captionBar.style.display = "none";
+    car.appendChild(captionBar);
+
+    let idx = 0;
+    const total = images.length;
+
+    if(imgEls[0] && imgEls[0].complete && imgEls[0].naturalWidth){
+      fitMediaToImage(media, imgEls[0]);
+    }
+
+    if(total <= 1) return; // no nav needed for a single image
+
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "carousel-btn prev";
+    prevBtn.setAttribute("aria-label","Previous image");
+    prevBtn.textContent = "\u2039";
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "carousel-btn next";
+    nextBtn.setAttribute("aria-label","Next image");
+    nextBtn.textContent = "\u203a";
+    const countEl = document.createElement("div");
+    countEl.className = "carousel-count";
+    const dotsWrap = document.createElement("div");
+    dotsWrap.className = "carousel-dots";
+    media.append(prevBtn, nextBtn, countEl, dotsWrap);
+
+    images.forEach((_,i)=>{
+      const d=document.createElement("div");
+      d.className="carousel-dot"+(i===0?" active":"");
+      d.addEventListener("click",()=>go(i));
+      dotsWrap.appendChild(d);
+    });
+    const dots = dotsWrap.querySelectorAll(".carousel-dot");
+
+    function update(){
+      track.style.transform = "translateX(-"+(idx*100)+"%)";
+      dots.forEach((d,i)=>d.classList.toggle("active",i===idx));
+      countEl.textContent = (idx+1)+" / "+total;
+      captionBar.textContent = images[idx].caption || "";
+      captionBar.style.display = images[idx].caption ? "flex" : "none";
+      const cur = imgEls[idx];
+      if(cur && cur.complete && cur.naturalWidth){
+        fitMediaToImage(media, cur);
+      }
+    }
+    function go(i){ idx=(i+total)%total; update(); }
+
+    prevBtn.addEventListener("click",()=>go(idx-1));
+    nextBtn.addEventListener("click",()=>go(idx+1));
+    update();
+
+    window.addEventListener("resize", ()=>{
+      const cur = imgEls[idx];
+      if(cur && cur.complete && cur.naturalWidth) fitMediaToImage(media, cur);
+    }, {passive:true});
+  });
+})();
+
+(function(){
+  const nav=document.getElementById("main-nav");
+  window.addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>50),{passive:true});
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("vis");});
+  },{threshold:.1});
+  document.querySelectorAll(".tl-entry,.proj-card,.cert-entry,.cert-pill,.statement-text .line,.lead-compact-row,.comp-card,.proj-block").forEach((el,i)=>{
+    el.style.transitionDelay=(i%6*.12)+"s";
+    obs.observe(el);
+  });
+  document.querySelectorAll("a[href^=\"#\"]").forEach(a=>{
+    a.addEventListener("click",e=>{
+      const t=document.querySelector(a.getAttribute("href"));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}
+    });
+  });
+})();
+
+(function(){
+  const el = document.getElementById("typed-name");
+  if(!el) return;
+  const text = "Rachel Ng Jingwen";
+  let i = 0;
+  function type(){
+    if(i <= text.length){
+      el.textContent = text.slice(0,i);
+      i++;
+      setTimeout(type, 90);
+    }
+  }
+  setTimeout(type, 600);
+})();
+</script>
+</body>
+</html>
