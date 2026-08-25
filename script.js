@@ -212,6 +212,9 @@ const PROJECT_IMAGES = {
   ecostile: [
     { src: "images/projects/ecostile homepage.jpg", caption: "Homepage" },
   ],
+    grc: [
+    { src: "images/projects/grc.png", caption: "Homepage" },
+  ],
 };
 
 (function(){
