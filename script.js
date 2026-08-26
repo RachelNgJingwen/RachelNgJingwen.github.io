@@ -197,6 +197,11 @@ const PROJECT_IMAGES = {
   forensics: [
     { src: "images/projects/examiners report.png", caption: "Examiner's report excerpt" },
   ],
+    tableau: [
+    { src: "images/projects/tableau dashboard.png", caption: "Tableau dashboard" },
+    { src: "images/projects/tableau analysis.png", caption: "Tableau analysis" },
+    { src: "images/projects/tableau recommendations.png", caption: "Tableau recommendations" },
+  ],
   foresight: [
     { src: "images/projects/foresight dashboard.png", caption: "Dashboard - signal volume by domain" },
     { src: "images/projects/foresight annual report.png", caption: "Auto-generated annual report" },
@@ -213,7 +218,7 @@ const PROJECT_IMAGES = {
     { src: "images/projects/ecostile homepage.jpg", caption: "Homepage" },
   ],
     grc: [
-    { src: "images/projects/grc.png", caption: "Homepage" },
+    { src: "images/projects/grc.png", caption: "GRC Audit of OCBC" },
   ],
 };
 
